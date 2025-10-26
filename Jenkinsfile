@@ -9,6 +9,13 @@ metadata:
   annotations:
     sidecar.istio.io/inject: "false"
 spec:
+  initContainers:
+  - name: check-service
+    image: curlimages/curl:latest
+    command:
+      - /bin/sh
+      - -c
+      - until curl jenkins.default.svc.cluster.local:50000; do echo 'checking service connection'; sleep 5s; done
   containers:
   - name: build
     image: dpthub/eos-jenkins-agent-base:latest
@@ -26,13 +33,13 @@ spec:
 ) {
     node (label) {
         stage ('Checkout SCM'){
-	git url: 'https://bitbucket.org/dptrealtime/eos-micro-services-admin.git', branch: 'master'
+        git url: 'https://bitbucket.org/dptrealtime/eos-micro-services-admin.git', branch: 'master'
           container('build') {
                 stage('Build a Maven project') {
                   //withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ) {dd
                    //sh "mvn clean package"
                   //  }
-                  sh './mvnw clean package' 
+                  sh './mvnw clean package'
                    //sh 'mvn clean package'
                 }
             }
