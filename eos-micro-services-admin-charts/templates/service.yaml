@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Values.labels.app }}-service
+  namespace: eos-dev
 spec:
   selector:
     name: {{ .Values.labels.app }}
