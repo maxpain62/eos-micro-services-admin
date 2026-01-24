@@ -60,5 +60,14 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
           """
       }
     }
+    stage ('push helm chart to aws ecr repository') {
+      container('aws-cli') {
+        sh """
+          aws ecr get-login-password --region ap-south-1 | helm registry login --username AWS --password-stdin 134448505602.dkr.ecr.ap-south-1.amazonaws.com
+          helm push eos-micro-services-admin-0.1.0.tgz oci://134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/helm/
+          aws ecr describe-images --repository-name dev/helm/eos-micro-services-admin --region ap-south-1
+          """
+      }
+    }
   }
 }
