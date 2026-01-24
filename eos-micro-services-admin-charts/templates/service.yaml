@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.metadata.namespace }}
 spec:
   selector:
-    name: {{ .Values.labels.app }}
+    app: {{ .Values.labels.app }}-app
   type: NodePort
   ports:
     - port: {{ .Values.containers.port }}
