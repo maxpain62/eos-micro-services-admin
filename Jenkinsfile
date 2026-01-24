@@ -53,17 +53,10 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
           """
       }
     }
-    stage ('package helm chart') {
-      container ('helm') {
-        sh """
-          helm package eos-micro-services-admin-charts
-          ls -l
-          """
-      }
-    }
-    stage ('push helm chart to aws ecr repository') {
+    stage ('package helm chart and push aws ecr repository') {
       container('aws-cli-helm') {
         sh """
+          helm package eos-micro-services-admin-charts
           helm push eos-micro-services-admin-0.1.0.tgz oci://134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/helm/
           aws ecr describe-images --repository-name dev/helm/eos-micro-services-admin --region ap-south-1
           """
