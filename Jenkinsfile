@@ -52,5 +52,13 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
           """
       }
     }
+    stage ('package helm chart') {
+      container ('helm') {
+        sh """
+          helm package eos-micro-services-admin-charts
+          ls -l
+          """
+      }
+    }
   }
 }
