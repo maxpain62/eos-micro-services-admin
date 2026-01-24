@@ -3,7 +3,7 @@
 
   <servers>
    <server>
-    <id>eos-maven-central-store</id>
+    <id>eos-eos-micro-services-admin</id>
     <username>aws</username>
     <password>replace_me</password>
    </server>
@@ -12,18 +12,17 @@
 
   <profiles>
     <profile>
-      <id>eos-maven-central-store</id>
+      <id>eos-eos-micro-services-admin</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
       <repositories>
         <repository>
-          <id>eos-maven-central-store</id>
-          <url>https://eos-134448505602.d.codeartifact.ap-south-1.amazonaws.com/maven/maven-central-store/</url>
+          <id>eos-eos-micro-services-admin</id>
+          <url>https://eos-134448505602.d.codeartifact.ap-south-1.amazonaws.com/maven/eos-eos-micro-services-admin/</url>
         </repository>
       </repositories>
     </profile>
   </profiles>
-
 
 </settings>
