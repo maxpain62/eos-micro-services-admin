@@ -18,4 +18,5 @@ spec:
           ports:
             - containerPort: {{ .Values.containers.port }}
               protocol: TCP
-      imagePullSecrets: ecr-cred
+      imagePullSecrets:
+        - name: ecr-cred
