@@ -7,10 +7,12 @@ spec:
   replicas: {{ .Values.replicacount }}
   selector:
     matchLabels:
-      name: {{ .Values.labels.app }}
+      app: {{ .Values.labels.app }}-app
   template:
     metadata:
       name: {{ .Values.labels.app }}
+      labels:
+        app: {{ .Values.labels.app }}-app
     spec:
       containers:
         - name: {{ .Values.labels.app }}
