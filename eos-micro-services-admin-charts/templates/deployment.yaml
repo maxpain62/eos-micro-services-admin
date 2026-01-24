@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.labels.app }}-deployment
-  namespace: eos-dev
+  namespace: {{ .Values.metadata.namespace }}
 spec:
   replicas: {{ .Values.replicacount }}
   selector:
@@ -16,6 +16,6 @@ spec:
         - name: {{ .Values.labels.app }}
           image: {{ .Values.containers.image }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.containers.port }}
               protocol: TCP
       imagePullSecrets: ecr-cred

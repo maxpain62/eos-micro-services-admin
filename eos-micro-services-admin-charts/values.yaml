@@ -1,7 +1,11 @@
 replicaCount: 1
 
+metadata:
+  namespace: eos-dev
+
 containers:
   image: 134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/eos-micro-services-admin
+  port: 8090
 
 labels:
   app: eos-micro-services-admin
