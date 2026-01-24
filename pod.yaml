@@ -8,7 +8,7 @@ spec:
   containers:
     - name: buildkit
       image: moby/buildkit:v0.15.0
-      command: 
+      command:
         - cat
       tty: true
       volumeMounts:
@@ -42,6 +42,18 @@ spec:
           mountPath: /home/jenkins/
         - name: maven-cache
           mountPath: /root/.m2
+    - name: helm
+      image: maxpain62/helm:v3.20.0
+      command:
+        - cat
+      tty: true
+      resources:
+        limits:
+          memory: "500Mi"
+          cpu: "250m"
+      volumeMounts:
+        - name: home-jenkins
+          mountPath: /home/jenkins/
   volumes:
     - name: home-jenkins
       emptyDir:
@@ -56,5 +68,5 @@ spec:
     - name: certs
       secret:
         secretName: buildkit-client-certs
-    - name:  git-tmp-volume
+    - name: git-tmp-volume
       emptyDir: {}
