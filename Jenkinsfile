@@ -43,7 +43,7 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
         sh '''
           HELM_APP_VERSION=$(cat eos-micro-services-admin-charts/Chart.yaml | grep appVersion | awk '{print $2}' | sed 's|"||g')
           echo "HELM_APP_VERSION: ${HELM_APP_VERSION}"
-          echo $env.GIT_TAG
+          echo "GIT_TAG: ${env.GIT_TAG}"
           ls -l && ls -l target/
           buildctl --addr tcp://buildkitd.devops-tools.svc.cluster.local:1234\
           --tlscacert /certs/ca.pem\
