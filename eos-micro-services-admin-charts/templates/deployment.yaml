@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.labels.app }}
-          image: "{{ .Values.containers.image }}-{{ .Chart.appVersion }}"
+          image: "{{ .Values.containers.image }}:{{ .Chart.AppVersion }}"
           ports:
             - containerPort: {{ .Values.containers.port }}
               protocol: TCP
