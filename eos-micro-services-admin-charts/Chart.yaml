@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "1.1"
 description: A Helm chart for Kubernetes
 name: eos-micro-services-admin
-version: "0.2.0"
+version: "0.2.1"
