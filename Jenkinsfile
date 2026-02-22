@@ -56,8 +56,8 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
     stage ('package helm chart and push aws ecr repository') {
       container('aws-cli-helm') {
         sh '''
-          HELM_CHART_VERSION=$(cat eos-micro-services-admin-charts\Chart.yaml | grep version | awk '{print $2}' | sed 's|"||g')
-          HELM_APP_VERSION=$(cat eos-micro-services-admin-charts\Chart.yaml | grep appVersion | awk '{print $2}' | sed 's|"||g')
+          HELM_CHART_VERSION=$(cat eos-micro-services-admin-charts/Chart.yaml | grep version | awk '{print $2}' | sed 's|"||g')
+          HELM_APP_VERSION=$(cat eos-micro-services-admin-charts/Chart.yaml | grep appVersion | awk '{print $2}' | sed 's|"||g')
           echo "HELM_CHART_VERSION: ${HELM_CHART_VERSION}"
           echo "HELM_APP_VERSION: ${HELM_APP_VERSION}"
           helm package eos-micro-services-admin-charts && ls -l
