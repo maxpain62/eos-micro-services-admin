@@ -40,10 +40,7 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
     }
     stage ('build docker image') {
       container ('buildkit') {
-        sh '''
-          HELM_APP_VERSION=$(cat eos-micro-services-admin-charts/Chart.yaml | grep appVersion | awk '{print $2}' | sed 's|"||g')
-          echo "HELM_APP_VERSION: ${HELM_APP_VERSION}"
-          echo "GIT_TAG: ${env.GIT_TAG}"
+        sh """
           ls -l && ls -l target/
           buildctl --addr tcp://buildkitd.devops-tools.svc.cluster.local:1234\
           --tlscacert /certs/ca.pem\
@@ -52,8 +49,8 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
           build --frontend dockerfile.v0\
           --opt filename=Dockerfile --local context=.\
           --local dockerfile=.\
-          --output type=image,name=134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/eos-micro-services-admin:${HELM_APP_VERSION},push=true
-          '''
+          --output type=image,name=134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/eos-micro-services-admin:${env.GIT_TAG},push=true
+          """
       }
     }
     stage ('package helm chart and push aws ecr repository') {
