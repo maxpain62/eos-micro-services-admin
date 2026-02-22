@@ -31,15 +31,15 @@ spec:
             httpGet:
               path: /
               port: {{ .Values.containers.port }}
-            failureThreshold: 3
+            failureThreshold: 5
             periodSeconds: 10
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
           readinessProbe:
             httpGet:
               path: /
               port: {{ .Values.containers.port }}
-            failureThreshold: 3
+            failureThreshold: 5
             periodSeconds: 10
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
       imagePullSecrets:
         - name: ecr-cred
