@@ -57,7 +57,7 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
       container('aws-cli-helm') {
         sh """
           helm package eos-micro-services-admin-charts && ls -l
-          helm push eos-micro-services-admin-0.1.1.tgz oci://134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/helm/
+          helm push eos-micro-services-admin-0.1.2.tgz oci://134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/helm/
           aws ecr describe-images --repository-name dev/helm/eos-micro-services-admin --region ap-south-1
           """
       }
