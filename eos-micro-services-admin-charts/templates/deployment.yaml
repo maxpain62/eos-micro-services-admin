@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.labels.app }}-deployment
   namespace: {{ .Values.metadata.namespace }}
 spec:
-  replicas: {{ .Values.replicacount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Values.labels.app }}-app
@@ -20,5 +20,26 @@ spec:
           ports:
             - containerPort: {{ .Values.containers.port }}
               protocol: TCP
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containers.port }}
+            failureThreshold: 3
+            periodSeconds: 10
+            initialDelaySeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containers.port }}
+            failureThreshold: 3
+            periodSeconds: 10
+            initialDelaySeconds: 30
       imagePullSecrets:
         - name: ecr-cred
