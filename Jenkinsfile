@@ -55,11 +55,15 @@ podTemplate(yaml: readTrusted('pod.yaml')) {
     }
     stage ('package helm chart and push aws ecr repository') {
       container('aws-cli-helm') {
-        sh """
+        sh '''
+          HELM_CHART_VERSION=$(cat eos-micro-services-admin-charts\Chart.yaml | grep version | awk '{print $2}' | sed 's|"||g')
+          HELM_APP_VERSION=$(cat eos-micro-services-admin-charts\Chart.yaml | grep appVersion | awk '{print $2}' | sed 's|"||g')
+          echo "HELM_CHART_VERSION: ${HELM_CHART_VERSION}"
+          echo "HELM_APP_VERSION: ${HELM_APP_VERSION}"
           helm package eos-micro-services-admin-charts && ls -l
-          helm push eos-micro-services-admin-0.2.0.tgz oci://134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/helm/
+          helm push eos-micro-services-admin-${HELM_CHART_VERSION}.tgz oci://134448505602.dkr.ecr.ap-south-1.amazonaws.com/dev/helm/
           aws ecr describe-images --repository-name dev/helm/eos-micro-services-admin --region ap-south-1
-          """
+          '''
       }
     }
   }
